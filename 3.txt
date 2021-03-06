@@ -1,0 +1,3 @@
+(a) Z = 30
+(b) Está fazendo um somatório (fazendo jus ao nome sigma). No caso, está somando
+em i, de 1 até 100, o fator 1/(i+a)^2.
