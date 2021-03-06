@@ -1,0 +1,41 @@
+(a) Após o pré-processamento, teremos:
+#define  SUM(X, Y) (X) + (Y)
+
+int main(int argc , char** argv) {
+    printf("sum = %d\n", (argc) + (argv [0][0]));
+}
+
+(b) Como macros fazem uma "substituição de código" no pré-processamento, pode 
+ocorrer de alguma variável local da macro ter o mesmo nome de algum parâmetro
+passado para ela advindo do escopo em que ela é substituída. Assim, esse mesmo
+nome pode gerar instruções com efeito indesejado, pois está afetando o valor do
+parâmetro e não da variável local (ou o contrário). Essa é a chamada captura de
+variáveis em macros.
+
+(c) Podemos montar um exemplo semelhante ao visto em aula:
+#include <stdio.h>
+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+
+int x = 0;
+int z = 0;
+
+int f(){
+    x += 1;
+    return 10;
+}
+
+int g(){
+    z += 1;
+    return 5;
+}
+
+int main(){
+    int res = MIN(f(), g());
+    printf("Min: %d, x=%d, z=%d\n", res, x, z);
+}
+
+A saída é "Min: 5, x=1, z=2". As variáveis globais x e z contam quantas vezes
+as funções f e g foram avaliadas, respectivamente. Elas são chamadas uma vez na
+avaliação da comparação X<Y, já que x=1 e z=2>1. Como essa comparação é falsa, 
+executa-se a branch do else, ou seja, Y, que no caso é a função g, o que 
+incrementa a variável global z mais uma vez.
