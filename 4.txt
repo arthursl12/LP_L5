@@ -1,0 +1,8 @@
+(a) Considerando estruturas muito grandes ou mais complexas (structs), 
+normalmente recomenda-se passá-las por referência para que, primeiro, não seja 
+necessário duplicar objetos muito grandes, ocupando bastante espaço na memória 
+e, segundo, que há o risco de o próprio compilador não copiar o objeto 
+corretamente (por exemplo, fazer uma shallow copy por padrão apenas, enquanto o
+programador desejasse uma deep copy).
+
+(b) Parâmetros passados por valor ficam na stack
